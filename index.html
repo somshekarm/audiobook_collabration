@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AudioBook Collaboration Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --accent: #0ea5e9;
+      --bg: #f6f8fa;
+      --text: #22223b;
+      --card-bg: #fff;
+      --border: #e5e7eb;
+      --hero-gradient: linear-gradient(90deg, #2563eb 0%, #0ea5e9 100%);
+      --radius: 16px;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      background: var(--hero-gradient);
+      color: #fff;
+      padding: 24px 0 40px 0;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      font-size: 1.1em;
+      margin-bottom: 16px;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 7px;
+      transition: background 0.2s;
+    }
+    nav a:hover {
+      background: rgba(255,255,255,0.18);
+    }
+    .logo {
+      font-size: 2em;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+    .hero-title {
+      font-size: 2.5em;
+      font-weight: 700;
+      margin-top: 0;
+    }
+    .hero-sub {
+      font-size: 1.3em;
+      font-weight: 400;
+      margin-bottom: 32px;
+    }
+    .cta-btn {
+      background: #fff;
+      color: var(--primary);
+      font-size: 1.2em;
+      padding: 13px 40px;
+      border: none;
+      border-radius: 100px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.07);
+      transition: background 0.2s;
+    }
+    .cta-btn:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+    section {
+      max-width: 1100px;
+      margin: 48px auto;
+      padding: 0 18px;
+    }
+    .roles {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .role-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 14px rgba(0,0,0,0.08);
+      padding: 28px 24px;
+      flex: 1 1 220px;
+      min-width: 220px;
+      max-width: 310px;
+      text-align: center;
+      border: 1px solid var(--border);
+      transition: box-shadow 0.2s;
+    }
+    .role-card:hover {
+      box-shadow: 0 6px 30px rgba(37,99,235,0.12);
+    }
+    .role-icon {
+      font-size: 2.7em;
+      margin-bottom: 12px;
+    }
+    .role-title {
+      font-size: 1.3em;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--primary);
+    }
+    .role-desc {
+      font-size: 1em;
+      color: #444;
+      margin-bottom: 10px;
+    }
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      margin-top: 20px;
+    }
+    .steps-list li {
+      margin-bottom: 10px;
+      padding-left: 2px;
+    }
+    .join-community {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 40px 0;
+    }
+    .join-card {
+      background: var(--primary);
+      color: #fff;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 14px rgba(0,0,0,0.08);
+      padding: 30px 24px;
+      flex: 1 1 220px;
+      min-width: 200px;
+      max-width: 260px;
+      text-align: center;
+      font-size: 1.1em;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      border: none;
+    }
+    .join-card:hover {
+      background: var(--accent);
+      transform: translateY(-5px) scale(1.04);
+    }
+    .featured-books {
+      margin: 48px 0;
+    }
+    .books-grid {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .book-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 14px rgba(0,0,0,0.08);
+      padding: 16px 20px;
+      min-width: 185px;
+      max-width: 220px;
+      text-align: center;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+    .book-cover {
+      width: 85px;
+      height: 85px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 10px rgba(37,99,235,0.08);
+      background: #e0e7ff;
+      display: inline-block;
+    }
+    .book-title {
+      font-size: 1.1em;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .book-author {
+      font-size: 0.95em;
+      color: #444;
+      margin-bottom: 7px;
+    }
+    .listen-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      padding: 6px 20px;
+      font-size: 0.95em;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 5px;
+      transition: background 0.2s;
+    }
+    .listen-btn:hover {
+      background: var(--primary);
+    }
+    .testimonials {
+      margin: 50px 0 30px 0;
+      text-align: center;
+    }
+    .testimonial-quote {
+      font-size: 1.15em;
+      font-style: italic;
+      color: #444;
+      margin-bottom: 15px;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .testimonial-author {
+      font-size: 1em;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    footer {
+      background: var(--primary);
+      color: #fff;
+      padding: 30px 0 10px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      font-size: 1em;
+    }
+    .footer-cta {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 10px;
+    }
+    .footer-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 1em;
+      transition: text-decoration 0.1s;
+    }
+    .footer-links a:hover { text-decoration: underline; }
+    .legal {
+      font-size: 0.9em;
+      opacity: 0.7;
+      margin-top: 10px;
+    }
+    /* Modal */
+    #modal-bg {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 990;
+    }
+    #modal {
+      display: none;
+      position: fixed;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 50px rgba(37,99,235,0.18);
+      max-width: 340px;
+      width: 90vw;
+      padding: 30px 24px;
+      z-index: 991;
+      text-align: center;
+    }
+    #modal h3 {
+      margin-top: 0;
+      color: var(--primary);
+      font-size: 1.4em;
+    }
+    #modal p {
+      font-size: 1em;
+      color: #444;
+    }
+    #modal .close-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      padding: 8px 30px;
+      font-size: 1em;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 18px;
+      transition: background 0.2s;
+    }
+    @media (max-width: 800px) {
+      .roles, .join-community, .books-grid { flex-direction: column; gap: 22px;}
+      section { max-width: 98vw; }
+    }
+    @media (max-width: 500px) {
+      .role-card, .join-card, .book-card { min-width: 90vw; max-width: 98vw;}
+      nav { gap: 12px; font-size: 1em;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">🔊 AudioBook Collab</div>
+    <nav>
+      <a href="#how">How it Works</a>
+      <a href="#join">Join</a>
+      <a href="#featured">Audiobooks</a>
+    </nav>
+    <div class="hero-title">Collaborate. Create. Release.</div>
+    <div class="hero-sub">The Future of Audiobooks: Where Authors, Producers, and Narrators unite.</div>
+    <button class="cta-btn" onclick="showModal('get-started')">Get Started</button>
+  </header>
+
+  <section id="how">
+    <h2 style="text-align:center;">How Collaboration Works</h2>
+    <div class="roles">
+      <div class="role-card">
+        <div class="role-icon">📝</div>
+        <div class="role-title">Author</div>
+        <div class="role-desc">Share your manuscript and bring your story to life.</div>
+        <ul class="steps-list">
+          <li>Submit your manuscript</li>
+          <li>Connect with producers</li>
+          <li>Review final audio</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">🎛️</div>
+        <div class="role-title">Producer</div>
+        <div class="role-desc">Assemble talent, oversee production, and ensure quality.</div>
+        <ul class="steps-list">
+          <li>Scout authors & narrators</li>
+          <li>Coordinate recording</li>
+          <li>Publish audiobook</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">🎙️</div>
+        <div class="role-title">Narrator</div>
+        <div class="role-desc">Lend your voice and bring stories to life for listeners.</div>
+        <ul class="steps-list">
+          <li>Audition & get selected</li>
+          <li>Record narration</li>
+          <li>See your work published</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="join">
+    <h2 style="text-align:center;">Join the Community</h2>
+    <div class="join-community">
+      <button class="join-card" onclick="showModal('author')">I'm an Author</button>
+      <button class="join-card" onclick="showModal('producer')">I'm a Producer</button>
+      <button class="join-card" onclick="showModal('narrator')">I'm a Narrator</button>
+    </div>
+  </section>
+
+  <section id="featured" class="featured-books">
+    <h2 style="text-align:center;">Featured Audiobooks</h2>
+    <div class="books-grid">
+      <div class="book-card">
+        <img class="book-cover" src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=200&q=80" alt="Book cover">
+        <div class="book-title">Whispering Pines</div>
+        <div class="book-author">by Jane Rivers</div>
+        <button class="listen-btn" onclick="showModal('listen')">Listen</button>
+      </div>
+      <div class="book-card">
+        <img class="book-cover" src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=200&q=80" alt="Book cover">
+        <div class="book-title">Echoes of the Past</div>
+        <div class="book-author">by Mark Finn</div>
+        <button class="listen-btn" onclick="showModal('listen')">Listen</button>
+      </div>
+      <div class="book-card">
+        <img class="book-cover" src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=200&q=80" alt="Book cover">
+        <div class="book-title">Starlight Voices</div>
+        <div class="book-author">by Mia Chen</div>
+        <button class="listen-btn" onclick="showModal('listen')">Listen</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <h2>Testimonials</h2>
+    <div class="testimonial-quote">
+      "This platform made my book a reality—collaboration has never been easier."<br>
+      <span class="testimonial-author">— Jane Rivers, Author</span>
+    </div>
+    <div class="testimonial-quote">
+      "Finding the right voice and team was seamless. Highly recommend!"<br>
+      <span class="testimonial-author">— Mark Finn, Producer</span>
+    </div>
+    <div class="testimonial-quote">
+      "I love being part of a creative community where my narration gets heard."<br>
+      <span class="testimonial-author">— Mia Chen, Narrator</span>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-cta">Ready to create your audiobook?</div>
+    <div class="footer-links">
+      <a href="mailto:info@audiobookcollab.com">Contact</a>
+      <a href="#" target="_blank">Twitter</a>
+      <a href="#" target="_blank">LinkedIn</a>
+    </div>
+    <div class="legal">© 2025 AudioBook Collab. All rights reserved.</div>
+  </footer>
+
+  <!-- Modal -->
+  <div id="modal-bg"></div>
+  <div id="modal">
+    <h3 id="modal-title"></h3>
+    <p id="modal-text"></p>
+    <button class="close-btn" onclick="hideModal()">Close</button>
+  </div>
+  <script>
+    function showModal(type) {
+      document.getElementById('modal-bg').style.display = 'block';
+      document.getElementById('modal').style.display = 'block';
+      let title = '';
+      let text = '';
+      if(type === 'get-started') {
+        title = 'Get Started';
+        text = 'Sign up as an Author, Producer, or Narrator and start collaborating on your next audiobook project!';
+      } else if(type === 'author') {
+        title = "Join as Author";
+        text = "Share your manuscript and connect with talented producers and narrators. Collaborate to turn your story into an audiobook!";
+      } else if(type === 'producer') {
+        title = "Join as Producer";
+        text = "Find the perfect stories and voices. Assemble your team and oversee the production of unique audiobooks.";
+      } else if(type === 'narrator') {
+        title = "Join as Narrator";
+        text = "Lend your voice to amazing stories. Audition for projects and see your narration published!";
+      } else if(type === 'listen') {
+        title = "Listen (Demo)";
+        text = "Audio playback coming soon. Stay tuned for featured audiobooks!";
+      } else {
+        title = "Info";
+        text = "Welcome to AudioBook Collab!";
+      }
+      document.getElementById('modal-title').innerText = title;
+      document.getElementById('modal-text').innerText = text;
+    }
+    function hideModal() {
+      document.getElementById('modal-bg').style.display = 'none';
+      document.getElementById('modal').style.display = 'none';
+    }
+    document.getElementById('modal-bg').onclick = hideModal;
+  </script>
+</body>
+</html>
